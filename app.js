@@ -11,13 +11,13 @@ const router = require('./routes');
 const { errorServer } = require('./middlewares/errorserver');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000, NODE_ENV, DB_PATH } = process.env;
+const { PORT = 3000, DB_PATH } = process.env;
 
 const app = express();
 
 app.use(helmet());
 
-mongoose.connect(`${NODE_ENV === 'production' ? DB_PATH : 'dev-secret'}`);
+mongoose.connect(DB_PATH);
 
 app.use(express.json());
 
