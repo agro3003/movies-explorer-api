@@ -11,7 +11,7 @@ const createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     thumbnail,
@@ -25,7 +25,7 @@ const createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailerLink: trailer,
+    trailerLink,
     thumbnail,
     owner: req.user._id,
     nameRU,
@@ -49,11 +49,11 @@ const getUserMovies = (req, res, next) => {
 };
 
 const removeMovie = (req, res, next) => {
-  Movie.findById(req.params.movieId)
+  Movie.findById(req.params._id)
     .then((movie) => {
       if (!movie) throw new ErrorNotFound('Видео с указанным _id не найдена.');
       if (!movie.owner.equals(req.user._id)) throw new ErrorForbidden('Недостаточно прав для удаления');
-      Movie.findByIdAndDelete(req.params.movieId)
+      Movie.findByIdAndDelete(req.params._id)
         .then((item) => {
           res.status(200).send(item);
         })

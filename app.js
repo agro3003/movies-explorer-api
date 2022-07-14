@@ -11,13 +11,13 @@ const router = require('./routes');
 const { errorServer } = require('./middlewares/errorserver');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000, DB_PATH } = process.env;
+const { PORT = 3000 } = process.env;
 
 const app = express();
 
 app.use(helmet());
 
-mongoose.connect(DB_PATH);
+mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb');
 
 app.use(express.json());
 
